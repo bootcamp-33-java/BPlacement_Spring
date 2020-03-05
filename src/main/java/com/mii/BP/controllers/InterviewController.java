@@ -28,6 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,8 +57,13 @@ public class InterviewController {
     EmployeeInterviewService eiService;
 
     @RequestMapping("/interview")
-    public String interview(Model model) {
+    public String interview(Model model, HttpServletRequest request) {
 
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        model.addAttribute("user", auth.getName()); // session yg login
+        model.addAttribute("user", auth.getName()); // session yg login. buat session
+        model.addAttribute("nama", request.getSession().getAttribute("employee"));
+        model.addAttribute("peran", request.getSession().getAttribute("role"));
 //        view request
         model.addAttribute("request", new Request());
         model.addAttribute("interview", new Interview());

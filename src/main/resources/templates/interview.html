@@ -10,226 +10,199 @@
         <meta name="author" content="">
 
         <title>Interview Page</title>
-    <div th:replace="fragments/header::css"></div>        
 
-    <!--Select2-->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-
-
-</head>
-
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+        <!--Select2-->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+    </head>
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Bootcamp Placement</div>
-            </a>
+    <body id="page-top">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Request</span></a>
-            </li>
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="interview">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Interview</span></a>
-            </li>
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="confirmation">
-                    <i class="fas fa-fw fa-envelope"></i>
-                    <span>Confirmation</span></a>
-            </li>
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+                <!-- Sidebar - Brand -->
+                <div th:replace="fragments/sidebar::side"></div>  
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+            </ul>
+            <!-- End of Sidebar -->
 
-        </ul>
-        <!-- End of Sidebar -->
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
 
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- Topbar -->
+                    <!--<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">-->
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
+                    <!--                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                                            <i class="fa fa-bars"></i>
+                                        </button>-->
 
                     <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <div th:replace="fragments/header::css"></div>
+                    <!--</nav>-->
+                    <!-- End of Topbar -->
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                        <a href="#">logout</a>
-                    </ul>
-                </nav>
-                <!-- End of Topbar -->
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
 
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Interview</h1>
+                        <p class="mb-4">Every new request that is going to be processed is shown here. <br/>
+                            The process is to appoint an interview candidate to the requester.
+                        </p>
 
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Interview</h1>
-                    <p class="mb-4">Every new request that is going to be processed is shown here. <br/>
-                        The process is to appoint an interview candidate to the requester.
-                    </p>
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <a href="/interview/sent">send email</a>
+                                <!-- Button trigger modal -->
+                            </div>
 
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <a href="/interview/sent">send email</a>
-                            <!-- Button trigger modal -->
-                        </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center">No.</th>
+                                                <th style="text-align: center">Requester</th>
+                                                <th style="text-align: center">Quantity</th>
+                                                <th style="text-align: center">Start Date</th>
+                                                <th style="text-align: center">End Date</th>
+                                                <th style="text-align: center">Skill</th>
+                                                <th style="text-align: center">Note</th>
+                                                <th style="text-align: center">Action</th>
+                                            </tr>
+                                        <tbody>
 
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center">No.</th>
-                                            <th style="text-align: center">Requester</th>
-                                            <th style="text-align: center">Quantity</th>
-                                            <th style="text-align: center">Start Date</th>
-                                            <th style="text-align: center">End Date</th>
-                                            <th style="text-align: center">Skill</th>
-                                            <th style="text-align: center">Note</th>
-                                            <th style="text-align: center">Action</th>
-                                        </tr>
-                                    <tbody>
+                                            <tr th:each="as :${requests}">
+                                                <td th:text="${as.id}"></td>
+                                                <td th:text="${as.userSite.name}"></td>
+                                                <td th:text="${as.quantity}"></td>
+                                                <td th:text="${as.startDate}"></td>
+                                                <td th:text="${as.endDate}"></td>
+                                                <td th:text="${as.skill.name}"></td>
+                                                <td th:text="${as.note}"></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                                        Interview
+                                                    </button>
+                                                </td>
+                                                <!--</div>-->
 
-                                        <tr th:each="as :${requests}">
-                                            <td th:text="${as.id}"></td>
-                                            <td th:text="${as.userSite.name}"></td>
-                                            <td th:text="${as.quantity}"></td>
-                                            <td th:text="${as.startDate}"></td>
-                                            <td th:text="${as.endDate}"></td>
-                                            <td th:text="${as.skill.name}"></td>
-                                            <td th:text="${as.note}"></td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
-                                                    Interview
-                                                </button>
-                                            </td>
-                                            <!--</div>-->
+                                            </tr>
+                                            <!--                    <tr th:each="sk : ${skills}">
+                                                                    <td th:text="${sk.id}"></td>
+                                                                    <td th:text="${sk.quantity}"></td>
+                                                                </tr>-->
 
-                                        </tr>
-                                        <!--                    <tr th:each="sk : ${skills}">
-                                                                <td th:text="${sk.id}"></td>
-                                                                <td th:text="${sk.quantity}"></td>
-                                                            </tr>-->
-
-                                    </tbody>
-                                </table>
-                                <!--end main table-->
+                                        </tbody>
+                                    </table>
+                                    <!--end main table-->
+                                </div>
                             </div>
                         </div>
+
                     </div>
+                    <!-- /.container-fluid -->
 
                 </div>
-                <!-- /.container-fluid -->
+                <!-- End of Main Content -->
 
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy;</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-        </div>
-        <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Appoint Interview Candidate</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form th:action="@{/interview/save}" th:object="${interview}" method="POST" id="formSave">
-
-                        Requester :
-                        <input name="req" type="text" id="textQuantity" class ="form-control" th:field="*{request}"/>
-                        Interview With :
-                        <input name="interviewer" type="text" id="textQuantity" class ="form-control"th:field="*{interviewer}"/>
-                        Time :
-                        <input name="interviewDate" type="datetime-local" id="textQuantity" class ="form-control" th:field="*{interviewDate}"/>
-                        <!--                        Appointed : <br/>
-                                                <select  class="form-control js-example-basic-multiple" id="appointed" name="tes[]" multiple="multiple">
-                                                    <option th:each="ss :${skillSets}" th:value="${ss.employee.id}" th:text="${ss.skill.name + ' - ' + ss.employee.id}"></option>
-                                                </select>-->
-                        Appointed
-                        <div th:object="${employeeInterview}" >
-                            <select name="employee" class="form-control">
-                                <option th:each="ss :${skillSets}" th:value="${ss.employee.id}" th:text="${ss.skill.name + ' - ' + ss.employee.id}" th:field="*{employee}"></option>
-                            </select>
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy;</span>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button onclick="updateSwal()" type="submit" form="formSave" value="Submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Appoint Interview Candidate</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form th:action="@{/interview/save}" th:object="${interview}" method="POST" id="formSave">
+
+                            Requester :
+                            <input name="req" type="text" id="textQuantity" class ="form-control" th:field="*{request}"/>
+                            Interview With :
+                            <input name="interviewer" type="text" id="textQuantity" class ="form-control"th:field="*{interviewer}"/>
+                            Time :
+                            <input name="interviewDate" type="datetime-local" id="textQuantity" class ="form-control" th:field="*{interviewDate}"/>
+                            <!--                        Appointed : <br/>
+                                                    <select  class="form-control js-example-basic-multiple" id="appointed" name="tes[]" multiple="multiple">
+                                                        <option th:each="ss :${skillSets}" th:value="${ss.employee.id}" th:text="${ss.skill.name + ' - ' + ss.employee.id}"></option>
+                                                    </select>-->
+                            Appointed
+                            <div th:object="${employeeInterview}" >
+                                <select name="employee" class="form-control">
+                                    <option th:each="ss :${skillSets}" th:value="${ss.employee.id}" th:text="${ss.skill.name + ' - ' + ss.employee.id}" th:field="*{employee}"></option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button onclick="updateSwal()" type="submit" form="formSave" value="Submit" class="btn btn-primary">Save changes</button>
 
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div th:replace="fragments/footer::js"></div>
+        <div th:replace="fragments/footer::js"></div>
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Select2-->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+        <script>
+                            $(document).ready(function () {
+                                $('.js-example-basic-multiple').select2();
+                            });
+        </script>
 
-    <!--Select2-->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-    <script>
-                        $(document).ready(function () {
-                            $('.js-example-basic-multiple').select2();
-                        });
-    </script>
-
-</body>
+    </body>
 
 </html>

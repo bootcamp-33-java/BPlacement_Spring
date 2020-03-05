@@ -61,17 +61,14 @@ public class Employee implements Serializable {
     @Column(name = "email")
     private String email;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 13)
     @Column(name = "phone_number")
     private String phoneNumber;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 225)
     @Column(name = "university")
     private String university;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "hire_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date hireDate;
@@ -98,6 +95,12 @@ public class Employee implements Serializable {
         this.phoneNumber = phoneNumber;
         this.university = university;
         this.hireDate = hireDate;
+    }
+    
+    public Employee(String id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
     }
 
     public String getId() {

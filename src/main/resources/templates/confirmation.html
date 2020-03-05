@@ -10,178 +10,140 @@
         <meta name="author" content="">
 
         <title>Interview Page</title>
-    <div th:replace="fragments/header::css"></div>        
+        <!--<div th:replace="fragments/header::css"></div>-->        
 
-    <!--Select2-->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+        <!--Select2-->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
-</head>
+    </head>
 
-<body id="page-top">
+    <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar -->
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Bootcamp Placement</div>
-            </a>
+            <div th:replace="fragments/sidebar::side"></div>        
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <!-- End of Sidebar -->
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Request</span></a>
-            </li>
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="interview">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Interview</span></a>
-            </li>
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="confirmation">
-                    <i class="fas fa-fw fa-envelope"></i>
-                    <span>Confirmation</span></a>
-            </li>
+                <!-- Main Content -->
+                <div id="content">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+                    <!-- Topbar -->
+                    <div th:replace="fragments/header::css"></div>        
+                    <!-- End of Topbar -->
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
 
-        </ul>
-        <!-- End of Sidebar -->
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Confirmation</h1>
+                        <p class="mb-4">
+                            After the interview, results will be given by the requester and an action to update the result and tell the candidate if he / she passed by sending an email notification
+                        </p>
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <!-- Button trigger modal -->
+                            </div>
 
-            <!-- Main Content -->
-            <div id="content">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center">NIK</th>
+                                                <th style="text-align: center">Interviewer</th>
+                                                <th style="text-align: center">Interview Project</th>
+                                                <th style="text-align: center">Interview Address</th>
+                                                <th style="text-align: center">Action</th>
+                                            </tr>
+                                        <tbody>
+                                            <tr th:each="ei:${employeeInterviews}">
+                                                <td th:text="${ei.employee.id}"></td>
+                                                <td th:text="${ei.interview.interviewer}"></td>
+                                                <td th:text="${ei.interview.request.userSite.project}"></td>
+                                                <td th:text="${ei.interview.request.userSite.site.address}"></td>
+                                                <td>
+                                                    <button class="btn btn-info btn-sm">
+                                                        <a th:href="@{confirmation/accepted/{id}(id=${ei.id})}">
+                                                            <i class="fas fa-check"></i>
+                                                        </a>
+                                                    </button>
+                                                    <br/><br/>
+                                                    <button class="btn btn-danger btn-sm">
+                                                        <a th:href="@{confirmation/rejected/{id}(id=${ei.id})}">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </button>
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                        <a href="#">logout</a>
-                    </ul>
-                </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Confirmation</h1>
-                    <p class="mb-4">
-                        After the interview, results will be given by the requester and an action to update the result and tell the candidate if he / she passed by sending an email notification
-                    </p>
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <!-- Button trigger modal -->
-                        </div>
-
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center">NIK</th>
-                                            <th style="text-align: center">Interviewer</th>
-                                            <th style="text-align: center">Interview Project</th>
-                                            <th style="text-align: center">Interview Address</th>
-                                            <th style="text-align: center">Action</th>
-                                        </tr>
-                                    <tbody>
-                                        <tr th:each="ei:${employeeInterviews}">
-                                            <td th:text="${ei.employee.id}"></td>
-                                            <td th:text="${ei.interview.interviewer}"></td>
-                                            <td th:text="${ei.interview.request.userSite.project}"></td>
-                                            <td th:text="${ei.interview.request.userSite.site.address}"></td>
-                                            <td>
-                                                <button class="btn btn-info btn-sm">
-                                                    <a th:href="@{confirmation/accepted/{id}(id=${ei.id})}">
-                                                        <i class="fas fa-check"></i>
-                                                    </a>
-                                                </button>
-                                                <br/><br/>
-                                                <button class="btn btn-danger btn-sm">
-                                                    <a th:href="@{confirmation/rejected/{id}(id=${ei.id})}">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
-                                                </button>
-
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <!--end main table-->
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <!--end main table-->
+                                </div>
                             </div>
                         </div>
+
                     </div>
+                    <!-- /.container-fluid -->
 
                 </div>
-                <!-- /.container-fluid -->
+                <!-- End of Main Content -->
 
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy;</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
             </div>
-            <!-- End of Main Content -->
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy;</span>
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <div th:replace="fragments/footer::js"></div>
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/logout">Logout</a>
                     </div>
                 </div>
-            </footer>
-            <!-- End of Footer -->
+            </div>
         </div>
-        <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
+        <!--Select2-->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('.js-example-basic-multiple').select2();
+            });
+        </script>
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <div th:replace="fragments/footer::js"></div>
-
-    <!--Select2-->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script>
-
-</body>
+    </body>
 
 </html>

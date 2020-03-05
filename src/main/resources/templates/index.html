@@ -19,144 +19,100 @@ and open the template in the editor.
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
 
     </head>
-    <body>
-        <!--start container-->
-        <div class = "container" style="padding:50px">
-            <h1 style="text-align: center;">Belajar Spring Boot CRUD</h1>
-        </div>
-        <!--end start container-->
+    <body id="page-top">
 
-        <!--Main Container-->
-        <div class="container">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-            <!-- Button Modal Insert -->
-            <div align = "right" style = "padding-bottom: 15px">
-                <button type="button" onclick="hapusText()" class="btn btn-primary" data-toggle="modal" data-target="#modalSave">
-                    Insert new Data
-                </button>
+            <!-- Sidebar -->
+            <div th:replace="fragments/sidebar::side"></div>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+                    <div th:replace="fragments/header::css"></div>
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <!--<h1 class="h3 mb-2 text-gray-800">Request User</h1>-->
+                        <!--<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>-->
+
+                        <!-- DataTales Example -->
+                        <div class="container card shadow mb-4">
+                            
+                            <div class="card-body">
+                                <h1 th:text="'Selamat Datang, '"></h1>
+                                <h2 th:text="${nama}"></h2>
+                                <p th:text="'Anda login sebagai, '+${peran}"></p>
+                                <!--<h1 th:text=" 'Halo, '+${user} "></h1>-->
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <div th:replace="fragments/footer::js"></div>
+                <!-- End of Footer -->
+
             </div>
-            <!--end button modal insert-->
-
-            <!--main table-->
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
-                <thead>
-                    <tr>
-                        <th style="text-align: center">Id</th>
-                        <th style="text-align: center">Quantity</th>
-                        <th style="text-align: center">Start Date</th>
-                        <th style="text-align: center">End Date</th>
-                        <th style="text-align: center">Note</th>
-                        <th style="text-align: center">User Site</th>
-                        <th style="text-align: center">Skill</th>
-                        <th style="text-align: center">Action</th>
-                    </tr>
-                <tbody>
-
-                    <tr th:each="as :${requests}">
-                        <td th:text="${as.id}"></td>
-                        <td th:text="${as.quantity}"></td>
-                        <td th:text="${as.startDate}"></td>
-                        <td th:text="${as.endDate}"></td>
-                        <td th:text="${as.note}"></td>
-                        <td th:text="${as.userSite.name}"></td>
-                        <td th:text="${as.skill.name}"></td>
-                        <td>
-                            <button class="btn btn-info btn-sm">
-                                <a th:href="@{updatestatus/{id}(id=${as.id})}">Interview </a>
-                            </button>
-                            <br/>
-                            <button th:id="@{delete/{id}(id=${as.id})}" class="btn btn-danger btn-sm" onclick="akanHapus(this.id)">
-                                Cancel
-                            </button>
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <!--end main table-->
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!--end main container-->
+        <!-- End of Page Wrapper -->
 
-        <!-- Modal Insert-->
-        <div class="modal fade" id="modalSave" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Save data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
                         </button>
                     </div>
-
-
-                    <!--Modal Body-->
-                    <div class="modal-body">
-                        <!--Insert-->
-                        <form th:action="@{/save}" th:object="${request}" method="POST" id="form1">
-                            <div align="center" class="form-group">
-                                <table class="container" style="border-collapse: separate;">
-                                    <th></th>
-                                    <th></th>
-                                    <tr>
-                                        <td>User Site :</td>
-                                        <td>
-                                            <select name="userSite" class="form-control">
-                                                <option th:each="us : ${userSites}" th:value="${us.id}" th:text="${us.name}" th:field="*{userSite}"></option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Quantity :</td>
-                                        <td><input name="quantity" type="text" id="textQuantity" class ="form-control" th:field="*{quantity}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Star Date :</td>
-                                        <td><input name="startDate" type="date" id="textStartDate" class ="form-control" th:field="*{startDate}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>End Date :</td>
-                                        <td><input name="endDate" type="date" id="textEndDate" class ="form-control" th:field="*{endDate}"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Note :</td>
-                                        <td><input name="note" type="text" id="textNote" class ="form-control" th:field="*{note}"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Skill :</td>
-                                        <td> 
-                                            <select name="skill" class="form-control">
-                                                <option th:each="sk : ${skills}" th:value="${sk.id}" th:text="${sk.name}" th:field="*{skill}"></option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Vehicle :</td>
-                                        <td> 
-                                            <select class="js-example-basic-multiple form-control" name="states[]" multiple="multiple">
-                                                <option value="MTR">Motor</option>
-                                                <option value="MBL">Mobil</option>
-                                                <option value="SPD">Sepedah</option>
-                                                <option value="BMO">Bemo</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </form>        
-                    </div>
-                    <!--end Modal Body-->
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button onclick="updateSwal()" type="submit" form="form1" value="Submit" class="btn btn-primary">Save changes</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/logout">Logout</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!--end Modal Insert-->
 
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
+
+        <!-- Page level plugins -->
+        <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="js/demo/datatables-demo.js"></script>
+        
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
@@ -181,6 +137,17 @@ and open the template in the editor.
                             });
         </script>
 
+        <!--function hilangin text-->
+        <script>
+            var id = document.getElementById("textId");
+            var nam = document.getElementById("textName");
+
+            function hapusText() {
+                id.setAttribute('value', '');
+                nam.setAttribute('value', '');
+            }
+        </script>
+        <!--end function hilangin text-->
 
         <!--function akun hapus sweetalert -->
         <script>
@@ -220,8 +187,20 @@ and open the template in the editor.
                 setTimeout(updateSwal, 1000);
             }
         </script>
-        <!--end function sweet alert save new-->
+        
+        <!--JAVA SCRIPT MANGGIL SESSION-->
+        <script>
+        $(document).ready(function (){  //dibikin file session js sendiri juga bisa
+            $.ajax({
+                url:"/getsession",
+                success: function(data){
+                    var a = data.name;
+                    console.log(a);
+                    $('#username').text("Hi, "+a);
+                }
+            })
+        })
+    </script>
 
-        <!--data tables numbering-->
     </body>
 </html>

@@ -12,255 +12,210 @@
         <title>Request</title>
 
 
-    <div th:replace="fragments/header::css"></div>        
-    <!--         Custom fonts for this template 
-            <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-            <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    
-             Custom styles for this template 
-            <link href="/css/sb-admin-2.min.css" rel="stylesheet">
-    
-             Custom styles for this page 
-            <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">-->
+        <!--         Custom fonts for this template 
+                <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+                <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        
+                 Custom styles for this template 
+                <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+        
+                 Custom styles for this page 
+                <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">-->
 
-</head>
+    </head>
 
-<body id="page-top">
+    <body id="page-top">
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar -->
+            <div th:replace="fragments/sidebar::side"></div>        
 
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Bootcamp Placement</div>
-            </a>
+            <!-- End of Sidebar -->
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+                <!-- Main Content -->
+                <div id="content">
 
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Request</span></a>
-            </li>
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="interview">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Interview</span></a>
-            </li>
-            <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="confirmation">
-                    <i class="fas fa-fw fa-envelope"></i>
-                    <span>Confirmation</span></a>
-            </li>
+                    <!-- Topbar -->
+                    <!--<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">-->
+                    <div th:replace="fragments/header::css">
+                      
+                    </div>        
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
+                        <!-- Topbar Navbar -->
+                    <!--</nav>-->
+                    <!-- End of Topbar -->
 
-        </ul>
-        <!-- End of Sidebar -->
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Request</h1>
+                        <p class="mb-4">Every new inserted request by the requester can be shown here.</p>
 
-            <!-- Main Content -->
-            <div id="content">
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <div align='right'>
+                                    <button type="button" onclick="hapusText()" class="btn btn-primary" data-toggle="modal" data-target="#modalSave">
+                                        Insert new Data
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align: center">No.</th>
+                                                <th style="text-align: center">Requester</th>
+                                                <th style="text-align: center">Quantity</th>
+                                                <th style="text-align: center">Start Date</th>
+                                                <th style="text-align: center">End Date</th>
+                                                <th style="text-align: center">Skill</th>
+                                                <th style="text-align: center">Note</th>
+                                                <th style="text-align: center">Action</th>
+                                            </tr>
+                                        <tbody>
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                                            <tr th:each="as :${requests}">
+                                                <td th:text="${as.id}"></td>
+                                                <td th:text="${as.userSite.name}"></td>
+                                                <td th:text="${as.quantity}"></td>
+                                                <td th:text="${as.startDate}"></td>
+                                                <td th:text="${as.endDate}"></td>
+                                                <td th:text="${as.skill.name}"></td>
+                                                <td th:text="${as.note}"></td>                                            
+                                                <td>
+                                                    <button class="btn btn-info btn-sm">
+                                                        <a th:href="@{tables/update/{id}(id=${as.id})}">
+                                                            <i class="fas fa-check"></i>
+                                                        </a>
+                                                    </button>
+                                                    <br/><br/>
+                                                    <button class="btn btn-danger btn-sm">
+                                                        <a th:href="@{tables/cancel/{id}(id=${as.id})}">
+                                                            <i class="fas fa-trash"></i>
+                                                        </a>
+                                                    </button>
+                                                </td>
+                                                <!--</div>-->
+                                            </tr>
 
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <div class="topbar-divider d-none d-sm-block"></div>
-                        <a href="#">logout</a>
-                    </ul>
-                </nav>
-                <!-- End of Topbar -->
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Request</h1>
-                    <p class="mb-4">Every new inserted request by the requester can be shown here.</p>
-
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <div align='right'>
-                                <button type="button" onclick="hapusText()" class="btn btn-primary" data-toggle="modal" data-target="#modalSave">
-                                    Insert new Data
-                                </button>
+                                        </tbody>
+                                    </table>
+                                    <!--end main table-->
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
-                                    <thead>
-                                        <tr>
-                                            <th style="text-align: center">No.</th>
-                                            <th style="text-align: center">Requester</th>
-                                            <th style="text-align: center">Quantity</th>
-                                            <th style="text-align: center">Start Date</th>
-                                            <th style="text-align: center">End Date</th>
-                                            <th style="text-align: center">Skill</th>
-                                            <th style="text-align: center">Note</th>
-                                            <th style="text-align: center">Action</th>
-                                        </tr>
-                                    <tbody>
 
-                                        <tr th:each="as :${requests}">
-                                            <td th:text="${as.id}"></td>
-                                            <td th:text="${as.userSite.name}"></td>
-                                            <td th:text="${as.quantity}"></td>
-                                            <td th:text="${as.startDate}"></td>
-                                            <td th:text="${as.endDate}"></td>
-                                            <td th:text="${as.skill.name}"></td>
-                                            <td th:text="${as.note}"></td>                                            
-                                            <td>
-                                                <button class="btn btn-info btn-sm">
-                                                    <a th:href="@{tables/update/{id}(id=${as.id})}">
-                                                        <i class="fas fa-check"></i>
-                                                    </a>
-                                                </button>
-                                                <br/><br/>
-                                                <button class="btn btn-danger btn-sm">
-                                                    <a th:href="@{tables/cancel/{id}(id=${as.id})}">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
-                                                </button>
-                                            </td>
-                                            <!--</div>-->
-                                        </tr>
+                    </div>
+                    <!-- /.container-fluid -->
 
-                                    </tbody>
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy;</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+        <!--MODAL-->
+
+
+        <!-- Modal Insert-->
+        <div class="modal fade" id="modalSave" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">New Request</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+                    <!--Modal Body-->
+                    <div class="modal-body">
+                        <!--Insert-->
+                        <form th:action="@{tables/save}" th:object="${request}" method="POST" id="form1">
+                            <div align="center" class="form-group">
+                                <table class="container" style="border-collapse: separate;">
+                                    <th></th>
+                                    <th></th>
+                                    <tr>
+                                        <td>Requester :</td>
+                                        <td>
+                                            <select name="userSite" class="form-control">
+                                                <option th:each="us : ${userSites}" th:value="${us.id}" th:text="${us.name}" th:field="*{userSite}"></option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quantity :</td>
+                                        <td><input name="quantity" type="text" id="textQuantity" class ="form-control" th:field="*{quantity}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Star Date :</td>
+                                        <td><input name="startDate" type="date" id="textStartDate" class ="form-control" th:field="*{startDate}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>End Date :</td>
+                                        <td><input name="endDate" type="date" id="textEndDate" class ="form-control" th:field="*{endDate}"></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Note :</td>
+                                        <td><input name="note" type="text" id="textNote" class ="form-control" th:field="*{note}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Skill needed:</td>
+                                        <td> 
+                                            <select name="skill" class="form-control">
+                                                <option th:each="sk : ${skills}" th:value="${sk.id}" th:text="${sk.name}" th:field="*{skill}"></option>
+                                            </select>
+                                        </td>
+                                    </tr>
                                 </table>
-                                <!--end main table-->
                             </div>
-                        </div>
+                        </form>        
                     </div>
-
-                </div>
-                <!-- /.container-fluid -->
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy;</span>
+                    <!--end Modal Body-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button onclick="updateSwal()" type="submit" form="form1" value="Submit" class="btn btn-primary">Save changes</button>
                     </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-        </div>
-        <!-- End of Content Wrapper -->
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-    <!--MODAL-->
-
-
-    <!-- Modal Insert-->
-    <div class="modal fade" id="modalSave" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">New Request</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-
-
-                <!--Modal Body-->
-                <div class="modal-body">
-                    <!--Insert-->
-                    <form th:action="@{tables/save}" th:object="${request}" method="POST" id="form1">
-                        <div align="center" class="form-group">
-                            <table class="container" style="border-collapse: separate;">
-                                <th></th>
-                                <th></th>
-                                <tr>
-                                    <td>Requester :</td>
-                                    <td>
-                                        <select name="userSite" class="form-control">
-                                            <option th:each="us : ${userSites}" th:value="${us.id}" th:text="${us.name}" th:field="*{userSite}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Quantity :</td>
-                                    <td><input name="quantity" type="text" id="textQuantity" class ="form-control" th:field="*{quantity}"></td>
-                                </tr>
-                                <tr>
-                                    <td>Star Date :</td>
-                                    <td><input name="startDate" type="date" id="textStartDate" class ="form-control" th:field="*{startDate}"></td>
-                                </tr>
-                                <tr>
-                                    <td>End Date :</td>
-                                    <td><input name="endDate" type="date" id="textEndDate" class ="form-control" th:field="*{endDate}"></td>
-                                </tr>
-
-                                <tr>
-                                    <td>Note :</td>
-                                    <td><input name="note" type="text" id="textNote" class ="form-control" th:field="*{note}"></td>
-                                </tr>
-                                <tr>
-                                    <td>Skill needed:</td>
-                                    <td> 
-                                        <select name="skill" class="form-control">
-                                            <option th:each="sk : ${skills}" th:value="${sk.id}" th:text="${sk.name}" th:field="*{skill}"></option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </form>        
-                </div>
-                <!--end Modal Body-->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button onclick="updateSwal()" type="submit" form="form1" value="Submit" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
-    </div>
-    <!--end Modal Insert-->
+        <!--end Modal Insert-->
 
-    <!--END MODAL-->
-    <div th:replace="fragments/footer::js"></div>
+        <!--END MODAL-->
+        <div th:replace="fragments/footer::js"></div>
 
-</body>
+    </body>
 
 </html>

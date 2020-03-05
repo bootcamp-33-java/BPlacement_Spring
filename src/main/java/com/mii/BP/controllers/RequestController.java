@@ -21,6 +21,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +44,12 @@ public class RequestController {
     UserSiteService userSiteService;
 
     @RequestMapping("") //bisa di ganti sama get mapping, post mapping, dll
-    public String getAll(Model model) {
-
+    public String getAll(Model model, HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        model.addAttribute("user", auth.getName()); // session yg login
+        model.addAttribute("user", auth.getName()); // session yg login. buat session
+        model.addAttribute("nama", request.getSession().getAttribute("employee"));
+        model.addAttribute("peran", request.getSession().getAttribute("role"));
 //        Masukkan data baru
         model.addAttribute("request", new Request());
         model.addAttribute("skill", new Skill());
@@ -58,17 +64,21 @@ public class RequestController {
 
     @RequestMapping("/tables")
 
-    public String tabel(Model model) {
-
+    public String tabel(Model model, HttpServletRequest request) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        model.addAttribute("user", auth.getName()); // session yg login
+        model.addAttribute("user", auth.getName()); // session yg login. buat session
+        model.addAttribute("nama", request.getSession().getAttribute("employee"));
+        model.addAttribute("peran", request.getSession().getAttribute("role"));
 //        Masukkan data baru
         model.addAttribute("request", new Request());
         model.addAttribute("skill", new Skill());
         model.addAttribute("userSite", new UserSite());
 //        Buat 
-        model.addAttribute("requests", requestService.getNewRequest() );
+        model.addAttribute("requests", requestService.getNewRequest());
         model.addAttribute("skills", skillService.getAll());
         model.addAttribute("userSites", userSiteService.getAll());
-        
+
         return "/tables";
     }
 
@@ -104,6 +114,7 @@ public class RequestController {
         requestService.updateToProcess(Integer.parseInt(id));
         return "redirect:/tables";
     }
+
     @GetMapping("tables/cancel/{id}")
     public String updateStatusCancel(Model model, @PathVariable("id") String id) {
         requestService.updateToProcess(Integer.parseInt(id));

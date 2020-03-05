@@ -7,7 +7,6 @@ package com.mii.BP.services;
 
 import com.mii.BP.entities.Employee;
 import com.mii.BP.repositories.EmployeeRepository;
-import com.mii.BP.repositories.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +26,10 @@ public class EmployeeService {
 
     public Employee save(Employee employee) {
         return repository.save(employee);
+    }
+    
+     public Employee getById(String id) {
+        Employee employee = repository.findById(id).get();
+        return employee;
     }
 }
