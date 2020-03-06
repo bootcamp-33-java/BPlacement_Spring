@@ -29,5 +29,4 @@ public class UserSiteService {
     public UserSite save(UserSite userSite) {
         return repository.save(userSite);
     }
-
-}
+  }

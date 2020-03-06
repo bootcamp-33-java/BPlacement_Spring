@@ -5,17 +5,18 @@
  */
 package com.mii.BP.repositories;
 
-import com.mii.BP.entities.UserSite;
-import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.mii.BP.entities.Site;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
  *
- * @author aqira
+ * @author Galih Satriya
  */
 @Repository
-public interface UserSiteRepository extends JpaRepository<UserSite, Integer> {
-    
+public interface SiteRepository extends CrudRepository<Site, String> {
+       
 }
