@@ -7,6 +7,7 @@ package com.mii.BP.controllers;
 
 import com.mii.BP.entities.Request;
 import com.mii.BP.entities.RequestStatus;
+import com.mii.BP.entities.Site;
 import com.mii.BP.entities.Skill;
 import com.mii.BP.entities.UserSite;
 import com.mii.BP.services.RequestService;
@@ -82,6 +83,25 @@ public class RequestController {
         return "/tables";
     }
 
+    @PostMapping("tables/saveUser")
+    public String saveUser(HttpServletRequest request) {
+        try {
+            String project = request.getParameter("project");
+            String name = request.getParameter("name");
+            String division = request.getParameter("division");
+            String team = request.getParameter("team");
+            int site = Integer.parseInt(request.getParameter("site"));
+
+            UserSite us = new UserSite(0, project, name, division,
+                    team, new Site(site));
+
+            userSiteService.save(us);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "redirect:/tables";
+    }
     @PostMapping("tables/save")
     public String save(HttpServletRequest request) {
         try {

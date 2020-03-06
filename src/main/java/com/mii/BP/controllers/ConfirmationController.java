@@ -7,7 +7,10 @@ package com.mii.BP.controllers;
 
 import com.mii.BP.entities.EmployeeInterview;
 import com.mii.BP.services.EmployeeInterviewService;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +28,13 @@ public class ConfirmationController {
     EmployeeInterviewService eiService;
     
     @RequestMapping("/confirmation")
-    public String confirmation(Model model) {
+    public String confirmation(Model model, HttpServletRequest request) {
+        
+         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        model.addAttribute("user", auth.getName()); // session yg login
+        model.addAttribute("user", auth.getName()); // session yg login. buat session
+        model.addAttribute("nama", request.getSession().getAttribute("employee"));
+        model.addAttribute("peran", request.getSession().getAttribute("role"));
         
         model.addAttribute("employeeInterview", new EmployeeInterview());
 //        Buat 
