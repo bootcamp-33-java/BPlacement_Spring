@@ -44,15 +44,15 @@
                     <!-- Topbar -->
                     <!--<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">-->
                     <div th:replace="fragments/header::css">
-                      
+
                     </div>        
 
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
-                        <!-- Topbar Navbar -->
+                    <!-- Topbar Navbar -->
                     <!--</nav>-->
                     <!-- End of Topbar -->
 
@@ -70,6 +70,11 @@
                                     <button type="button" onclick="hapusText()" class="btn btn-primary" data-toggle="modal" data-target="#modalSave">
                                         Insert new Data
                                     </button>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                        Insert new User
+                                    </button>
+
                                 </div>
                             </div>
                             <div class="card-body">
@@ -89,7 +94,8 @@
                                         <tbody>
 
                                             <tr th:each="as :${requests}">
-                                                <td th:text="${as.id}"></td>
+                                                <td>#</td>
+                                                <!--<td th:text="${as.id}"></td>-->
                                                 <td th:text="${as.userSite.name}"></td>
                                                 <td th:text="${as.quantity}"></td>
                                                 <td th:text="${as.startDate}"></td>
@@ -145,7 +151,65 @@
         </a>
         <!--MODAL-->
 
+        <!--modal request insert-->
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Insert New User</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <!--Modal Body-->
+                    <div class="modal-body">
+                        <!--Insert-->
+                        <form th:action="@{tables/saveuser}" th:object="${userSite}" method="POST" id="form2">
+                            <div align="center" class="form-group">
+                                <table class="container" style="border-collapse: separate;">
+                                    <th></th>
+                                    <th></th>
+                                    <tr>
+                                        <td>Site :</td>
+                                        <td>
+                                            <select name="site" class="form-control">
+                                                <option th:each="s : ${sites}" th:value="${s.id}" th:text="${s.name}" th:field="*{site}"></option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    <td>Project :</td>
+                                    <td><input name="project" type="text" id="textQuantity" class ="form-control" th:field="*{project}"></td>
+                                    </tr>
+                                    <tr>
+                                    <td>Name :</td>
+                                    <td><input name="name" type="text" id="textQuantity" class ="form-control" th:field="*{name}"></td>
+                                    </tr>
+                                    <tr>
+                                    <td>Division :</td>
+                                    <td><input name="division" type="text" id="textQuantity" class ="form-control" th:field="*{division}"></td>
+                                    </tr>
+                                    <tr>
+                                    <td>Team :</td>
+                                    <td><input name="team" type="text" id="textQuantity" class ="form-control" th:field="*{team}"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>        
+                    </div>
+                    <!--end Modal Body-->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button onclick="updateSwal()" type="submit" form="form2" value="Submit" class="btn btn-primary">Save changes</button>    
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--end modal request insert-->
         <!-- Modal Insert-->
         <div class="modal fade" id="modalSave" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -215,7 +279,5 @@
 
         <!--END MODAL-->
         <div th:replace="fragments/footer::js"></div>
-
     </body>
-
 </html>

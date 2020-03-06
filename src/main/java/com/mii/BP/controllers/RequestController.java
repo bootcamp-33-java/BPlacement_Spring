@@ -7,9 +7,11 @@ package com.mii.BP.controllers;
 
 import com.mii.BP.entities.Request;
 import com.mii.BP.entities.RequestStatus;
+import com.mii.BP.entities.Site;
 import com.mii.BP.entities.Skill;
 import com.mii.BP.entities.UserSite;
 import com.mii.BP.services.RequestService;
+import com.mii.BP.services.SiteService;
 import com.mii.BP.services.SkillService;
 import com.mii.BP.services.UserSiteService;
 import java.text.ParseException;
@@ -43,6 +45,9 @@ public class RequestController {
     @Autowired
     UserSiteService userSiteService;
 
+    @Autowired
+    SiteService siteService;
+
     @RequestMapping("") //bisa di ganti sama get mapping, post mapping, dll
     public String getAll(Model model, HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -54,10 +59,12 @@ public class RequestController {
         model.addAttribute("request", new Request());
         model.addAttribute("skill", new Skill());
         model.addAttribute("userSite", new UserSite());
+        model.addAttribute("site", new Site());
 //        Buat 
         model.addAttribute("requests", requestService.getAll());
         model.addAttribute("skills", skillService.getAll());
         model.addAttribute("userSites", userSiteService.getAll());
+        model.addAttribute("sites", siteService.getAll());
 
         return "index"; //kasih ke viewnya
     }
@@ -78,6 +85,7 @@ public class RequestController {
         model.addAttribute("requests", requestService.getNewRequest());
         model.addAttribute("skills", skillService.getAll());
         model.addAttribute("userSites", userSiteService.getAll());
+        model.addAttribute("sites", siteService.getAll());
 
         return "/tables";
     }
@@ -105,6 +113,22 @@ public class RequestController {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
+        return "redirect:/tables";
+    }
+    @PostMapping("tables/saveuser")
+    public String saveuser(HttpServletRequest request) {
+
+            int site = Integer.parseInt(request.getParameter("site"));
+            String project = request.getParameter("project");
+            String name = request.getParameter("name");
+            String division = request.getParameter("division");
+            String team = request.getParameter("team");
+            
+            UserSite us = new UserSite(0, new Site(site), project, name,
+                    division, team);
+
+            userSiteService.save(us);
 
         return "redirect:/tables";
     }

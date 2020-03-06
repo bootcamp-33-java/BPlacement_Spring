@@ -59,7 +59,9 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
                                         <thead>
                                             <tr>
-                                                <th style="text-align: center">NIK</th>
+                                                <th>No</th>
+                                                <th style="text-align: center">Name</th>
+                                                <th style="text-align: center">Email</th>
                                                 <th style="text-align: center">Interviewer</th>
                                                 <th style="text-align: center">Interview Project</th>
                                                 <th style="text-align: center">Interview Address</th>
@@ -67,7 +69,9 @@
                                             </tr>
                                         <tbody>
                                             <tr th:each="ei:${employeeInterviews}">
-                                                <td th:text="${ei.employee.id}"></td>
+                                                <td>#</td>
+                                                <td th:text="${ei.employee.name}"></td>
+                                                <td th:text="${ei.employee.email}"></td>
                                                 <td th:text="${ei.interview.interviewer}"></td>
                                                 <td th:text="${ei.interview.request.userSite.project}"></td>
                                                 <td th:text="${ei.interview.request.userSite.site.address}"></td>

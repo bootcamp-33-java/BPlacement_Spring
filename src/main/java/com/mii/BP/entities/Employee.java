@@ -38,8 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByName", query = "SELECT e FROM Employee e WHERE e.name = :name")
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
     , @NamedQuery(name = "Employee.findByPhoneNumber", query = "SELECT e FROM Employee e WHERE e.phoneNumber = :phoneNumber")
-    , @NamedQuery(name = "Employee.findByUniversity", query = "SELECT e FROM Employee e WHERE e.university = :university")
-    , @NamedQuery(name = "Employee.findByHireDate", query = "SELECT e FROM Employee e WHERE e.hireDate = :hireDate")})
+    , @NamedQuery(name = "Employee.findByUniversity", query = "SELECT e FROM Employee e WHERE e.university = :university")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,10 +67,6 @@ public class Employee implements Serializable {
     @Size(min = 1, max = 225)
     @Column(name = "university")
     private String university;
-    @Basic(optional = false)
-    @Column(name = "hire_date")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date hireDate;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<SkillSet> skillSetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
@@ -88,15 +83,14 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(String id, String name, String email, String phoneNumber, String university, Date hireDate) {
+    public Employee(String id, String name, String email, String phoneNumber, String university) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.university = university;
-        this.hireDate = hireDate;
     }
-    
+
     public Employee(String id, String name, String email) {
         this.id = id;
         this.name = name;
@@ -141,14 +135,6 @@ public class Employee implements Serializable {
 
     public void setUniversity(String university) {
         this.university = university;
-    }
-
-    public Date getHireDate() {
-        return hireDate;
-    }
-
-    public void setHireDate(Date hireDate) {
-        this.hireDate = hireDate;
     }
 
     @XmlTransient
@@ -211,5 +197,5 @@ public class Employee implements Serializable {
     public String toString() {
         return "com.mii.BP.entities.Employee[ id=" + id + " ]";
     }
-    
+
 }

@@ -92,9 +92,45 @@
                                                 <td th:text="${as.skill.name}"></td>
                                                 <td th:text="${as.note}"></td>
                                                 <td>
-                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#updatedModal" th:attr="data-target='#updatedModal'+${as.id}" >
                                                         Interview
                                                     </button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" th:id="updatedModal+${as.id }" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Appoint Interview Candidate</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form th:action="@{/interview/save}" th:object="${interview}" method="POST" id="formSave">
+                                                                        Requester Id :
+                                                                        <input class="form-control" type="text" name="req" th:field ="*{request}" th:text="${as.id}"  />
+                                                                        Interview With :
+                                                                        <input name="interviewer" type="text" id="textQuantity" class ="form-control" th:field="*{interviewer}"/>
+                                                                        Time :
+                                                                        <input name="interviewDate" type="datetime-local" id="textQuantity" class ="form-control" th:field="*{interviewDate}"/>
+                                                                        Appointed
+                                                                        <div th:object="${employeeInterview}" >
+                                                                            <select name="employee" class="form-control">
+                                                                                <option th:each="ss :${skillSets}" th:value="${ss.employee.id}" th:text="${ss.skill.name + ' - ' + ss.employee.name}" th:field="*{employee}"></option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button onclick="updateSwal()" type="submit" form="formSave" value="Submit" class="btn btn-primary">Save changes</button>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </td>
                                                 <!--</div>-->
 
@@ -137,45 +173,41 @@
         </a>
 
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Appoint Interview Candidate</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form th:action="@{/interview/save}" th:object="${interview}" method="POST" id="formSave">
-
-                            Requester :
-                            <input name="req" type="text" id="textQuantity" class ="form-control" th:field="*{request}"/>
-                            Interview With :
-                            <input name="interviewer" type="text" id="textQuantity" class ="form-control"th:field="*{interviewer}"/>
-                            Time :
-                            <input name="interviewDate" type="datetime-local" id="textQuantity" class ="form-control" th:field="*{interviewDate}"/>
-                            <!--                        Appointed : <br/>
-                                                    <select  class="form-control js-example-basic-multiple" id="appointed" name="tes[]" multiple="multiple">
-                                                        <option th:each="ss :${skillSets}" th:value="${ss.employee.id}" th:text="${ss.skill.name + ' - ' + ss.employee.id}"></option>
-                                                    </select>-->
-                            Appointed
-                            <div th:object="${employeeInterview}" >
-                                <select name="employee" class="form-control">
-                                    <option th:each="ss :${skillSets}" th:value="${ss.employee.id}" th:text="${ss.skill.name + ' - ' + ss.employee.id}" th:field="*{employee}"></option>
-                                </select>
+        <!--        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Appoint Interview Candidate</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
                             </div>
-                        </form>
+                            <div class="modal-body">
+                                <form th:action="@{/interview/save}" th:object="${interview}" method="POST" id="formSave">
+        
+                                    Requester :
+                                    <input name="req" type="text" id="textQuantity" class ="form-control" th:field="*{request}"/>
+                                    Interview With :
+                                    <input name="interviewer" type="text" id="textQuantity" class ="form-control"th:field="*{interviewer}"/>
+                                    Time :
+                                    <input name="interviewDate" type="datetime-local" id="textQuantity" class ="form-control" th:field="*{interviewDate}"/>
+                                    Appointed
+                                    <div th:object="${employeeInterview}" >
+                                        <select name="employee" class="form-control">
+                                            <option th:each="ss :${skillSets}" th:value="${ss.employee.id}" th:text="${ss.skill.name + ' - ' + ss.employee.name}" th:field="*{employee}"></option>
+                                        </select>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button onclick="updateSwal()" type="submit" form="formSave" value="Submit" class="btn btn-primary">Save changes</button>
+        
+        
+                            </div>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button onclick="updateSwal()" type="submit" form="formSave" value="Submit" class="btn btn-primary">Save changes</button>
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
+                </div>-->
 
         <div th:replace="fragments/footer::js"></div>
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -198,9 +230,9 @@
         <!--Select2-->
         <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
         <script>
-                            $(document).ready(function () {
-                                $('.js-example-basic-multiple').select2();
-                            });
+                                                                        $(document).ready(function () {
+                                                                            $('.js-example-basic-multiple').select2();
+                                                                        });
         </script>
 
     </body>

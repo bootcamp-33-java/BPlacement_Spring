@@ -83,6 +83,15 @@ public class UserSite implements Serializable {
         this.name = name;
     }
 
+    public UserSite(Integer id, Site site, String project, String name, String division, String team) {
+        this.id = id;
+        this.site = site;
+        this.project = project;
+        this.name = name;
+        this.division = division;
+        this.team = team;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -164,5 +173,5 @@ public class UserSite implements Serializable {
     public String toString() {
         return "com.mii.BP.entities.UserSite[ id=" + id + " ]";
     }
-    
+
 }
