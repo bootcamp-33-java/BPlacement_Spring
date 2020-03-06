@@ -9,7 +9,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Request</title>
+        <title>Request Page</title>
 
 
         <!--         Custom fonts for this template 
@@ -44,15 +44,15 @@
                     <!-- Topbar -->
                     <!--<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">-->
                     <div th:replace="fragments/header::css">
-                      
+
                     </div>        
 
-                        <!-- Sidebar Toggle (Topbar) -->
-                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                            <i class="fa fa-bars"></i>
-                        </button>
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
-                        <!-- Topbar Navbar -->
+                    <!-- Topbar Navbar -->
                     <!--</nav>-->
                     <!-- End of Topbar -->
 
@@ -69,6 +69,9 @@
                                 <div align='right'>
                                     <button type="button" onclick="hapusText()" class="btn btn-primary" data-toggle="modal" data-target="#modalSave">
                                         Insert new Data
+                                    </button>
+                                    <button type="button" onclick="hapusText()" class="btn btn-primary" data-toggle="modal" data-target="#modaluser">
+                                        Insert User Site
                                     </button>
                                 </div>
                             </div>
@@ -169,9 +172,9 @@
                                     <tr>
                                         <td>Requester :</td>
                                         <td>
-                                            <select name="userSite" class="form-control">
+<!--                                            <select name="userSite" class="form-control">
                                                 <option th:each="us : ${userSites}" th:value="${us.id}" th:text="${us.name}" th:field="*{userSite}"></option>
-                                            </select>
+                                            </select>-->
                                         </td>
                                     </tr>
                                     <tr>
@@ -201,7 +204,7 @@
                                     </tr>
                                 </table>
                             </div>
-                        </form>        
+                        </form>
                     </div>
                     <!--end Modal Body-->
                     <div class="modal-footer">
@@ -213,9 +216,87 @@
         </div>
         <!--end Modal Insert-->
 
+        <!-- Modal Insert User Site -->
+                <div class="modal fade" id="modaluser" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">New User Site</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <!--Modal Body-->
+                            <div class="modal-body">
+                                <!--Insert-->
+                                <form th:action="@{tables/saveUser}" th:object="${userSite}" method="POST" id="form2">
+                                    <div align="center" class="form-group">
+                                        <table class="container" style="border-collapse: separate;">
+                                            <th></th>
+                                            <th></th>
+                                            <tr>
+                                                <td>Site :</td>
+                                                <td>
+                                                    <select name="site" class="form-control">
+                                                        <option th:each="ss : ${site}" th:value="${ss.id}" th:text="${ss.name}" th:field="*{site}"></option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Project :</td>
+                                                <td><input name="project" type="text" id="textQuantity" class ="form-control" th:field="*{project}" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Name :</td>
+                                                <td><input name="name" type="text" id="textStartDate" class ="form-control" th:field="*{name}" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Division :</td>
+                                                <td><input name="division" type="text" id="textEndDate" class ="form-control" th:field="*{division}" ></td>
+                                            </tr>
+        
+                                            <tr>
+                                                <td>Team :</td>
+                                                <td><input name="team" type="text" id="textNote" class ="form-control" th:field="*{team}" ></td>
+                                            </tr>   
+                                        </table>
+                                    </div>
+                                </form>  
+                            </div>
+                            <!--end Modal Body-->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button onclick="updateSwal()" type="submit" form="form2" value="Submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        <!-- End modal insert user site -->
+        <!-- Button trigger modal -->
+
+
+        <!-- Modal -->
+        
         <!--END MODAL-->
         <div th:replace="fragments/footer::js"></div>
-
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="/logout">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 
 </html>

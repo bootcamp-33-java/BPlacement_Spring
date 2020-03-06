@@ -83,6 +83,15 @@ public class UserSite implements Serializable {
         this.name = name;
     }
 
+    public UserSite(Integer id, String project, String name, String division, String team, Site site) {
+        this.id = id;
+        this.project = project;
+        this.name = name;
+        this.division = division;
+        this.team = team;
+        this.site = site;
+    }
+
     public Integer getId() {
         return id;
     }
