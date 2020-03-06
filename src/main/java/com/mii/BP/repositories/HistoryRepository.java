@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author Galih Satriya
  */
 @Repository
-public interface HistoryRepository extends CrudRepository<EmployeeInterview, Integer>{
-List<EmployeeInterview> findAll();
+public interface HistoryRepository extends CrudRepository<EmployeeInterview, Integer> {
+
+    List<EmployeeInterview> findAll();
 }

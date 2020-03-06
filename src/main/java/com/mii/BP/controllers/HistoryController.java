@@ -5,21 +5,27 @@
  */
 package com.mii.BP.controllers;
 
+import com.mii.BP.entities.EmployeeInterview;
 import com.mii.BP.services.EmployeeService;
 import com.mii.BP.services.HistoryService;
 import com.mii.BP.services.InterviewService;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
  * @author Galih Satriya
  */
+@RequestMapping(value = "history")
 @Controller
 public class HistoryController {
 
@@ -46,6 +52,22 @@ public class HistoryController {
 //        model.addAttribute("requests", requestService.getAll());
         //        model.addAttribute("skills", skillService.getAll());
 
-        return "report"; //kasih ke viewnya
+        return "history"; //kasih ke viewnya
     }
+//    @PostMapping("save")
+//    public String save(@Valid EmployeeInterview employeeInterview) {
+//        historyService.save(employeeInterview);
+//        return "redirect:/history";
+//    }
+//
+//    @GetMapping("{id}")
+//    public String getById(Model model, @PathVariable("id") Integer id) {
+//
+////        buat getById
+//        model.addAttribute("history", historyService.getById(id));
+//
+////        buat getAll setelah masukkin ID
+//        model.addAttribute("history", historyService.getAll());
+//        return "index";
+//    }
 }
