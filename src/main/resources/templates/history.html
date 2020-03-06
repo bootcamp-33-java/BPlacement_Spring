@@ -1,4 +1,10 @@
 <!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -9,11 +15,11 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Confirmation Page</title>
-        <!--<div th:replace="fragments/header::css"></div>-->        
+        <title>History</title>
 
         <!--Select2-->
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
 
     </head>
 
@@ -24,9 +30,12 @@
 
 
             <!-- Sidebar -->
+            <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <div th:replace="fragments/sidebar::side"></div>        
+                <!-- Sidebar - Brand -->
+                <div th:replace="fragments/sidebar::side"></div>  
 
+            </ul>
             <!-- End of Sidebar -->
 
             <!-- Content Wrapper -->
@@ -36,60 +45,52 @@
                 <div id="content">
 
                     <!-- Topbar -->
-                    <div th:replace="fragments/header::css"></div>        
+                    <!--<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">-->
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <!--                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                                            <i class="fa fa-bars"></i>
+                                        </button>-->
+
+                    <!-- Topbar Navbar -->
+                    <div th:replace="fragments/header::css"></div>
+                    <!--</nav>-->
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-2 text-gray-800">Confirmation</h1>
+                        <h1 class="h3 mb-2 text-gray-800">History</h1>
                         <p class="mb-4">
-                            After the interview, results will be given by the requester and an action to update the result and tell the candidate if he / she passed by sending an email notification
+                            This page is to display the history of the developer who has interviewed and display the results.
                         </p>
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <!-- Button trigger modal -->
-                            </div>
 
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
                                         <thead>
                                             <tr>
-                                                <th>No</th>
-                                                <th style="text-align: center">Name</th>
-                                                <th style="text-align: center">Email</th>
-                                                <th style="text-align: center">Interviewer</th>
-                                                <th style="text-align: center">Interview Project</th>
-                                                <th style="text-align: center">Interview Address</th>
-                                                <th style="text-align: center">Action</th>
+                                                <th style="text-align: center">NIK</th>
+                                                <th style="text-align: center">Interview in</th>
+                                                <th style="text-align: center">Address</th>
+                                                <th style="text-align: center">Date</th>
+                                                <th style="text-align: center">Result</th>
                                             </tr>
                                         <tbody>
-                                            <tr th:each="ei:${employeeInterviews}">
-                                                <td>#</td>
-                                                <td th:text="${ei.employee.name}"></td>
-                                                <td th:text="${ei.employee.email}"></td>
-                                                <td th:text="${ei.interview.interviewer}"></td>
-                                                <td th:text="${ei.interview.request.userSite.project}"></td>
-                                                <td th:text="${ei.interview.request.userSite.site.address}"></td>
-                                                <td>
-                                                    <button class="btn btn-info btn-sm">
-                                                        <a th:href="@{confirmation/accepted/{id}(id=${ei.id})}">
-                                                            <i class="fas fa-check"></i>
-                                                        </a>
-                                                    </button>
-                                                    <br/><br/>
-                                                    <button class="btn btn-danger btn-sm">
-                                                        <a th:href="@{confirmation/rejected/{id}(id=${ei.id})}">
-                                                            <i class="fas fa-trash"></i>
-                                                        </a>
-                                                    </button>
 
-                                                </td>
-                                            </tr>
+
+                                            <tr th:each="as :${histories}">
+                                                <td th:text="${as.employee.id}"></td>
+                                                <td th:text="${as.interview.request.userSite.site.name}"></td>
+                                                <td th:text="${as.interview.request.userSite.site.address}"></td>
+                                                <td th:text="${as.interview.interviewDate}"></td>
+                                                <td th:text="${as.result}"></td>
+                                                <!--</div>-->
+                                            </tr>                                        
                                         </tbody>
                                     </table>
                                     <!--end main table-->
@@ -122,6 +123,9 @@
             <i class="fas fa-angle-up"></i>
         </a>
 
+        <!-- Modal -->
+
+
         <div th:replace="fragments/footer::js"></div>
         <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -151,3 +155,4 @@
     </body>
 
 </html>
+
