@@ -35,17 +35,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "EmployeeInterview.findByResult", query = "SELECT e FROM EmployeeInterview e WHERE e.result = :result")})
 public class EmployeeInterview implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 8)
+    @Column(name = "result")
+    private String result;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 8)
-    @Column(name = "result")
-    private String result;
     @JoinColumn(name = "employee", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Employee employee;
@@ -80,13 +81,6 @@ public class EmployeeInterview implements Serializable {
         this.id = id;
     }
 
-    public String getResult() {
-        return result;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
 
     public Employee getEmployee() {
         return employee;
@@ -127,6 +121,14 @@ public class EmployeeInterview implements Serializable {
     @Override
     public String toString() {
         return "com.mii.BP.entities.EmployeeInterview[ id=" + id + " ]";
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 
 }

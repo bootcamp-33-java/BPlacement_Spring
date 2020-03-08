@@ -35,21 +35,6 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
-    @Autowired
-    EmployeeService employeeService;
-
-    @Autowired
-    RequestService requestService;
-
-    //    SkillService skillService;
-//    @RequestMapping("/report")
-//    public String question(Model model, HttpServletRequest request) {
-//        model.addAttribute("nama", "Hallo " + request.getSession().getAttribute("employee"));
-////        model.addAttribute("questions", service.getByQuiz(request.getParameter("id")));
-////        System.out.println(request.getParameter("id"));
-//        model.addAttribute("reports", reportService.getAll());
-//        return "report";
-//    }
     @GetMapping("")//bisa di ganti sama get mapping, post mapping, dll
     public String getAll(Model model, HttpServletRequest request) {
     org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -58,10 +43,7 @@ public class ReportController {
         model.addAttribute("nama", request.getSession().getAttribute("employee"));
         model.addAttribute("peran", request.getSession().getAttribute("role"));
         
-        model.addAttribute("reports", reportService.getAll());
-//        model.addAttribute("employees", employeeService.getAll());
-//        model.addAttribute("requests", requestService.getAll());
-        //        model.addAttribute("skills", skillService.getAll());
+        model.addAttribute("reports", reportService.getResultAccepted() );
 
         return "report"; //kasih ke viewnya
     }
@@ -70,32 +52,8 @@ public class ReportController {
 
     public String report(Model model) {
 
-//        Masukkan data baru
-        model.addAttribute("report", new Placement());
-        model.addAttribute("employee", new Employee());
-        model.addAttribute("request", new Request());
-
 //        Buat 
-        model.addAttribute("reports", reportService.getAll());
-        model.addAttribute("employees", employeeService.getAll());
-        model.addAttribute("requests", requestService.getAll());
-        return "/tables";
-    }
-
-    @PostMapping("save")
-    public String save(@Valid Placement placement) {
-        reportService.save(placement);
-        return "redirect:/report";
-    }
-
-    @GetMapping("{id}")
-    public String getById(Model model, @PathVariable("id") Integer id) {
-
-//        buat getById
-        model.addAttribute("report", reportService.getById(id));
-
-//        buat getAll setelah masukkin ID
-        model.addAttribute("report", reportService.getAll());
-        return "index";
+        model.addAttribute("reports", reportService.getResultAccepted() );
+        return "/report";
     }
 }

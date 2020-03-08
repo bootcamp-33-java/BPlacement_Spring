@@ -34,6 +34,7 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
     @Modifying
     @Query(value="UPDATE Request SET request_status = '3' WHERE id = ?1", nativeQuery = true)
     public void updateToCancelled(int id);
+    
     @Modifying
     @Query(value="UPDATE Request SET request_status = '4' WHERE id = ?1", nativeQuery = true)
     public void updateToDone(int id);

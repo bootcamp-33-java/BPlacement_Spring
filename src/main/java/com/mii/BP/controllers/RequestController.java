@@ -99,8 +99,7 @@ public class RequestController {
             String team = request.getParameter("team");
             int site = Integer.parseInt(request.getParameter("site"));
 
-            UserSite us = new UserSite(0, project, name, division,
-                    team, new Site(site));
+            UserSite us = new UserSite(0, project, name, division, team, new Site(site));
 
             userSiteService.save(us);
         } catch (Exception e) {
@@ -144,8 +143,7 @@ public class RequestController {
             String division = request.getParameter("division");
             String team = request.getParameter("team");
             
-            UserSite us = new UserSite(0, new Site(site), project, name,
-                    division, team);
+            UserSite us = new UserSite(0, project, name, division, team, new Site(site));
 
             userSiteService.save(us);
 
@@ -160,7 +158,7 @@ public class RequestController {
 
     @GetMapping("tables/cancel/{id}")
     public String updateStatusCancel(Model model, @PathVariable("id") String id) {
-        requestService.updateToProcess(Integer.parseInt(id));
+        requestService.updateToCancelled(Integer.parseInt(id));
         return "redirect:/tables";
     }
 }

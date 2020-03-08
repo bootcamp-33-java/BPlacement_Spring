@@ -46,24 +46,16 @@ import org.springframework.format.annotation.DateTimeFormat;
     , @NamedQuery(name = "Request.findByNote", query = "SELECT r FROM Request r WHERE r.note = :note")})
 public class Request implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "quantity")
     private int quantity;
     @Basic(optional = false)
     @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "start_date")
     @Temporal(TemporalType.DATE)
     private Date startDate;
     @Basic(optional = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     @Column(name = "end_date")
     @Temporal(TemporalType.DATE)
@@ -71,6 +63,13 @@ public class Request implements Serializable {
     @Size(max = 225)
     @Column(name = "note")
     private String note;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @JoinColumn(name = "skill", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Skill skill;
@@ -118,13 +117,6 @@ public class Request implements Serializable {
         this.id = id;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 
     public Date getStartDate() {
         return startDate;
@@ -142,13 +134,6 @@ public class Request implements Serializable {
         this.endDate = endDate;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 
     public Skill getSkill() {
         return skill;
@@ -215,6 +200,22 @@ public class Request implements Serializable {
     @Override
     public String toString() {
         return "com.mii.BP.entities.Request[ id=" + id + " ]";
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
 }

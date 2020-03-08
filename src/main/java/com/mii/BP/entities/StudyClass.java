@@ -36,13 +36,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "StudyClass.findByRoom", query = "SELECT s FROM StudyClass s WHERE s.room = :room")})
 public class StudyClass implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 5)
-    @Column(name = "id")
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -53,6 +46,14 @@ public class StudyClass implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "room")
     private String room;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "id")
+    private String id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "studyClass", fetch = FetchType.LAZY)
     private List<BatchClass> batchClassList;
 
@@ -77,21 +78,6 @@ public class StudyClass implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRoom() {
-        return room;
-    }
-
-    public void setRoom(String room) {
-        this.room = room;
-    }
 
     @XmlTransient
     public List<BatchClass> getBatchClassList() {
@@ -125,6 +111,22 @@ public class StudyClass implements Serializable {
     @Override
     public String toString() {
         return "com.mii.BP.entities.StudyClass[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
     
 }

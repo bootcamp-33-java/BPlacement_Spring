@@ -41,13 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByUniversity", query = "SELECT e FROM Employee e WHERE e.university = :university")})
 public class Employee implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 5)
-    @Column(name = "id")
-    private String id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -59,14 +52,20 @@ public class Employee implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
-    @Size(min = 1, max = 13)
+    @Size(max = 13)
     @Column(name = "phone_number")
     private String phoneNumber;
-    @Basic(optional = false)
-    @Size(min = 1, max = 225)
+    @Size(max = 225)
     @Column(name = "university")
     private String university;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 5)
+    @Column(name = "id")
+    private String id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
     private List<SkillSet> skillSetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
@@ -105,21 +104,6 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -129,13 +113,6 @@ public class Employee implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getUniversity() {
-        return university;
-    }
-
-    public void setUniversity(String university) {
-        this.university = university;
-    }
 
     @XmlTransient
     public List<SkillSet> getSkillSetList() {
@@ -196,6 +173,30 @@ public class Employee implements Serializable {
     @Override
     public String toString() {
         return "com.mii.BP.entities.Employee[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
     }
 
 }

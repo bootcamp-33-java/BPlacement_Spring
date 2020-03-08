@@ -63,7 +63,7 @@
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <a href="/interview/sent">send email</a>
+                                <a href="/interview/sendemail">send email</a>
                                 <!-- Button trigger modal -->
                             </div>
 
@@ -74,6 +74,7 @@
                                             <tr>
                                                 <th style="text-align: center">No.</th>
                                                 <th style="text-align: center">Requester</th>
+                                                <th style="text-align: center">Transaction</th>
                                                 <th style="text-align: center">Quantity</th>
                                                 <th style="text-align: center">Start Date</th>
                                                 <th style="text-align: center">End Date</th>
@@ -84,8 +85,9 @@
                                         <tbody>
 
                                             <tr th:each="as :${requests}">
-                                                <td th:text="${as.id}"></td>
+                                                <td>#</td>
                                                 <td th:text="${as.userSite.name}"></td>
+                                                <td th:text="${as.id}"></td>
                                                 <td th:text="${as.quantity}"></td>
                                                 <td th:text="${as.startDate}"></td>
                                                 <td th:text="${as.endDate}"></td>
@@ -108,7 +110,7 @@
                                                                 <div class="modal-body">
                                                                     <form th:action="@{/interview/save}" th:object="${interview}" method="POST" id="formSave">
                                                                         Requester Id :
-                                                                        <input class="form-control" type="text" name="req" th:field ="*{request}" th:text="${as.id}"  />
+                                                                        <input class="form-control" type="text" name="req" th:field ="*{request}"/>
                                                                         Interview With :
                                                                         <input name="interviewer" type="text" id="textQuantity" class ="form-control" th:field="*{interviewer}"/>
                                                                         Time :

@@ -74,21 +74,23 @@ and open the template in the editor.
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="1">
                                         <thead>
                                             <tr>
+                                                <th>No</th>
                                                 <th style="text-align: center">Name</th>
                                                 <th style="text-align: center">Site</th>
                                                 <th style="text-align: center">Address</th>
                                                 <th style="text-align: center">Project</th>
-                                                <th style="text-align: center">End Date</th>
+                                                <th style="text-align: center">Status</th>
                                             </tr>
                                         <tbody>
 
 
                                             <tr th:each="as :${reports}">
+                                                <td>#</td>
                                                 <td th:text="${as.employee.name}"></td>
-                                                <td th:text="${as.request.userSite.site.name}"></td>
-                                                <td th:text="${as.request.userSite.site.address}"></td>
-                                                <td th:text="${as.request.userSite.project}"></td>
-                                                <td th:text="${as.request.endDate}"></td>
+                                                <td th:text="${as.interview.request.userSite.site.name}"></td>
+                                                <td th:text="${as.interview.request.userSite.site.address}"></td>
+                                                <td th:text="${as.interview.request.userSite.project}"></td>
+                                                <td th:text="${as.result}"></td>
                                                 <!--</div>-->
                                             </tr>                                        
                                         </tbody>

@@ -38,12 +38,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Batch.findByEndDate", query = "SELECT b FROM Batch b WHERE b.endDate = :endDate")})
 public class Batch implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Column(name = "start_date")
@@ -54,6 +48,13 @@ public class Batch implements Serializable {
     @Column(name = "end_date")
     @Temporal(TemporalType.DATE)
     private Date endDate;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id")
+    private Integer id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "batch", fetch = FetchType.LAZY)
     private List<BatchClass> batchClassList;
 
@@ -127,5 +128,4 @@ public class Batch implements Serializable {
     public String toString() {
         return "com.mii.BP.entities.Batch[ id=" + id + " ]";
     }
-    
 }

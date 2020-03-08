@@ -44,6 +44,6 @@ public class HistoryController {
 //        model.addAttribute("requests", requestService.getAll());
         //        model.addAttribute("skills", skillService.getAll());
 
-        return "report"; //kasih ke viewnya
+        return "history"; //kasih ke viewnya
     }
 }

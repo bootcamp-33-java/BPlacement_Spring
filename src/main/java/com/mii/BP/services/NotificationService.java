@@ -35,7 +35,7 @@ public class NotificationService {
         mail.setFrom("dummy.aqira@gmail.com");
 
         //subject emailnya
-        mail.setSubject("Interview Adira " + user.getName() + " di " + user.getDivisi());
+        mail.setSubject("Interview Pertamina [16157] " + user.getName());
 
         //isi emailnya
         mail.setText("Dear " + user.getName() + "," + "\n"

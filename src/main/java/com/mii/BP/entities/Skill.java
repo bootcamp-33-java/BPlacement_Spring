@@ -35,6 +35,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name")})
 public class Skill implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "name")
+    private String name;
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -42,11 +48,6 @@ public class Skill implements Serializable {
     @Size(min = 1, max = 6)
     @Column(name = "id")
     private String id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "name")
-    private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "skill", fetch = FetchType.LAZY)
     private List<SkillSet> skillSetList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "skill", fetch = FetchType.LAZY)
@@ -72,13 +73,6 @@ public class Skill implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @XmlTransient
     public List<SkillSet> getSkillSetList() {
@@ -121,6 +115,14 @@ public class Skill implements Serializable {
     @Override
     public String toString() {
         return "com.mii.BP.entities.Skill[ id=" + id + " ]";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
     
 }

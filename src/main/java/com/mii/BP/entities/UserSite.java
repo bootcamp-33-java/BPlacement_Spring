@@ -42,12 +42,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "UserSite.findByTeam", query = "SELECT u FROM UserSite u WHERE u.team = :team")})
 public class UserSite implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -64,6 +58,13 @@ public class UserSite implements Serializable {
     @Size(max = 25)
     @Column(name = "team")
     private String team;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userSite", fetch = FetchType.LAZY)
     private List<Request> requestList;
     @JoinColumn(name = "site", referencedColumnName = "id")
@@ -83,7 +84,7 @@ public class UserSite implements Serializable {
         this.name = name;
     }
 
-    public UserSite(Integer id, Site site, String project, String name, String division, String team) {
+    public UserSite(Integer id, String project, String name, String division, String team, Site site) {
         this.id = id;
         this.site = site;
         this.project = project;
@@ -91,6 +92,7 @@ public class UserSite implements Serializable {
         this.division = division;
         this.team = team;
     }
+    
 
     public Integer getId() {
         return id;
@@ -100,37 +102,6 @@ public class UserSite implements Serializable {
         this.id = id;
     }
 
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDivision() {
-        return division;
-    }
-
-    public void setDivision(String division) {
-        this.division = division;
-    }
-
-    public String getTeam() {
-        return team;
-    }
-
-    public void setTeam(String team) {
-        this.team = team;
-    }
 
     @XmlTransient
     public List<Request> getRequestList() {
@@ -172,6 +143,38 @@ public class UserSite implements Serializable {
     @Override
     public String toString() {
         return "com.mii.BP.entities.UserSite[ id=" + id + " ]";
+    }
+
+    public String getProject() {
+        return project;
+    }
+
+    public void setProject(String project) {
+        this.project = project;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
     }
 
 }

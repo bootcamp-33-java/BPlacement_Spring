@@ -43,12 +43,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Interview.findByInterviewDate", query = "SELECT i FROM Interview i WHERE i.interviewDate = :interviewDate")})
 public class Interview implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id")
-    private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -59,6 +53,13 @@ public class Interview implements Serializable {
     @Column(name = "interview_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date interviewDate;
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "interview", fetch = FetchType.LAZY)
     private List<EmployeeInterview> employeeInterviewList;
     @JoinColumn(name = "request", referencedColumnName = "id")
@@ -93,13 +94,6 @@ public class Interview implements Serializable {
         this.id = id;
     }
 
-    public String getInterviewer() {
-        return interviewer;
-    }
-
-    public void setInterviewer(String interviewer) {
-        this.interviewer = interviewer;
-    }
 
     public Date getInterviewDate() {
         return interviewDate;
@@ -149,6 +143,14 @@ public class Interview implements Serializable {
     @Override
     public String toString() {
         return "com.mii.BP.entities.Interview[ id=" + id + " ]";
+    }
+
+    public String getInterviewer() {
+        return interviewer;
+    }
+
+    public void setInterviewer(String interviewer) {
+        this.interviewer = interviewer;
     }
 
 }

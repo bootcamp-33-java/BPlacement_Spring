@@ -37,17 +37,18 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "RequestStatus.findByStatus", query = "SELECT r FROM RequestStatus r WHERE r.status = :status")})
 public class RequestStatus implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "status")
+    private String status;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "status")
-    private String status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "requestStatus", fetch = FetchType.LAZY)
     private List<Request> requestList;
 
@@ -71,13 +72,6 @@ public class RequestStatus implements Serializable {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     @XmlTransient
     public List<Request> getRequestList() {
@@ -111,6 +105,14 @@ public class RequestStatus implements Serializable {
     @Override
     public String toString() {
         return "com.mii.BP.entities.RequestStatus[ id=" + id + " ]";
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
 }

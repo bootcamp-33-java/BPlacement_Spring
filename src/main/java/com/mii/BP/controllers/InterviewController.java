@@ -84,9 +84,9 @@ public class InterviewController {
         SimpleDateFormat formatdate = new SimpleDateFormat("dd-mm-yyyy");
         User user = new User();
 
-        user.setName("Aqira Kelana");
+        user.setName("Aqira Kelana Mudjiarto");
         user.setEmailAddress("aqira.kelana@gmail.com");
-        user.setAlamat("Jl. Dr. Setiabudi No.199 Lantai 2 Bandung");
+        user.setAlamat("Jl. Medan Merdeka Timur 1A, Jakarta Pusat");
         user.setDivisi("Divisi Halo");
         user.setInterviewer("Fadel Gideon");
         user.setTeam("Sakura");
@@ -108,15 +108,15 @@ public class InterviewController {
     }
 //    send email
 
-    @RequestMapping("/interview/send")
+    @RequestMapping("/interview/sendemail")
     public String emailModal() {
         //send email
         SimpleDateFormat formatdate = new SimpleDateFormat("dd-mm-yyyy");
         User user = new User();
 
         user.setEmailAddress("aqira.kelana@gmail.com");
-        user.setName("Aqira Kelana");
-        user.setAlamat("Jl. Dr. Setiabudi No.199 Lantai 2 Bandung");
+        user.setName("Aqira Kelana Mudjiarto");
+        user.setAlamat("Jl. Medan Merdeka Timur 1A, Jakarta Pusat");
         user.setDivisi("Divisi Halo");
         user.setInterviewer("Fadel Gideon");
         user.setTeam("Sakura");
@@ -134,7 +134,7 @@ public class InterviewController {
             logger.info("Error Sending Email :" + e.getMessage());
         }
         //send notif
-        return "interview";
+        return "redirect:/interview";
     }
 
     @PostMapping("interview/save")
@@ -144,7 +144,7 @@ public class InterviewController {
         try {
             int req = Integer.parseInt(request.getParameter("request"));
             String interviewer = request.getParameter("interviewer");
-
+            
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
             String dateInterview = request.getParameter("interviewDate");
 
@@ -160,7 +160,6 @@ public class InterviewController {
     //employee interview
         String employee = request.getParameter("employee");
         int interview = interviewService.getByLastIndex();
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAA = "+employee+interview);
         EmployeeInterview ei = new EmployeeInterview(0, new Employee(employee), new Interview(interview), "PENDING");
         eiService.save(ei);
 

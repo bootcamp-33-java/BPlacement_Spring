@@ -5,6 +5,7 @@
  */
 package com.mii.BP.services;
 
+import com.mii.BP.entities.EmployeeInterview;
 import com.mii.BP.entities.Placement;
 import com.mii.BP.repositories.ReportRepository;
 import java.util.List;
@@ -17,17 +18,19 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ReportService {
-    @Autowired
-    ReportRepository ReportRepository;
 
-   
-    public Placement save(Placement placement) {
-        return ReportRepository.save(placement);
+    @Autowired
+    ReportRepository reportRepository;
+
+    public EmployeeInterview save(EmployeeInterview employeeInterview) {
+        return reportRepository.save(employeeInterview);
     }
-    public Placement getById(Integer id) {
-        return ReportRepository.findById(id).get();
+
+    public Iterable<EmployeeInterview> getResultAccepted() {
+        return reportRepository.tampilinAcceptedResult() ;
     }
-    public List<Placement> getAll(){
-        return ReportRepository.findAll();
+
+    public Iterable<EmployeeInterview> getAll() {
+        return reportRepository.findAll();
     }
 }
